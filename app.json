@@ -1,5 +1,5 @@
 {
-      "name": "Nutsuki",
+      "name": "Hori-San",
       "description": "An Anime themed Telegram group management bot.",
       "logo": "https://telegra.ph/file/12a67bfae430322ceb2e8.jpg",
       "keywords": [
@@ -7,9 +7,9 @@
          "anime",
          "group",
          "manager",
-         "TheNatsukiBot"
+         "HoriSanBot"
       ],   
-   "repository": "https://github.com/Sadew451/Nutsuki",
+   "repository": "https://github.com/Th30utlaw/Hori-San",
    "addons": [
       {
          "options": {
@@ -199,6 +199,6 @@
       "manager",
       "Natsuki"
    ],
-   "name": "Natsuki",
-   "repository": "https://github.com/Sadew451/Natsuki"
+   "name": "Hori-San",
+   "repository": "https://github.com/Th30utlaw/Hori-San"
 }
