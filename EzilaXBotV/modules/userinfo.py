@@ -211,115 +211,93 @@ def gifid(update: Update, context: CallbackContext):
 
 
 @run_async
-def info(update: Update, context: CallbackContext):
-    bot, args = context.bot, context.args
-    message = update.effective_message
-    chat = update.effective_chat
+def info(update, context):
+    args = context.args
+    msg = update.effective_message  # type: Optional[Message]
     user_id = extract_user(update.effective_message, args)
+    chat = update.effective_chat
 
     if user_id:
-        user = bot.get_chat(user_id)
+        user = context.bot.get_chat(user_id)
 
-    elif not message.reply_to_message and not args:
-        user = message.from_user
+    elif not msg.reply_to_message and not args:
+        user = msg.from_user
 
-    elif not message.reply_to_message and (
+    elif not msg.reply_to_message and (
         not args
         or (
             len(args) >= 1
             and not args[0].startswith("@")
             and not args[0].isdigit()
-            and not message.parse_entities([MessageEntity.TEXT_MENTION])
+            and not msg.parse_entities([MessageEntity.TEXT_MENTION])
         )
     ):
-        message.reply_text("I can't extract a user from this.")
+        msg.reply_text("I can't extract a user from this.")
         return
 
     else:
         return
 
-    rep = message.reply_text("<code>Appraising...</code>", parse_mode=ParseMode.HTML)
+    del_msg = msg.reply_text(
+        "Hold tight while I steal some data from <b>FBI Database</b>...",
+        parse_mode=ParseMode.HTML,
+    )
 
     text = (
-        f"╒═══「<b> Appraisal results:</b> 」\n"
-        f"ID: <code>{user.id}</code>\n"
-        f"First Name: {html.escape(user.first_name)}"
+        "<b>USER INFO</b>:"
+        "\n\nID: <code>{}</code>"
+        "\nFirst Name: {}".format(user.id, html.escape(user.first_name))
     )
 
     if user.last_name:
-        text += f"\nLast Name: {html.escape(user.last_name)}"
+        text += "\nLast Name: {}".format(html.escape(user.last_name))
 
     if user.username:
-        text += f"\nUsername: @{html.escape(user.username)}"
+        text += "\nUsername: @{}".format(html.escape(user.username))
 
-    text += f"\nPermalink: {mention_html(user.id, 'link')}"
+    text += "\nPermanent user link: {}".format(mention_html(user.id, "link"))
 
-    if chat.type != "private" and user_id != bot.id:
-        _stext = "\nPresence: <code>{}</code>"
-
-        afk_st = is_afk(user.id)
-        if afk_st:
-            text += _stext.format("AFK")
-        else:
-            status = status = bot.get_chat_member(chat.id, user.id).status
-            if status:
-                if status in {"left", "kicked"}:
-                    text += _stext.format("Not here")
-                elif status == "member":
-                    text += _stext.format("Detected")
-                elif status in {"administrator", "creator"}:
-                    text += _stext.format("Admin")
-    if user_id not in [bot.id, 777000, 1087968824]:
-        userhp = hpmanager(user)
-        text += f"\n\n<b>Health:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
+    text += "\nNumber of profile pics: {}".format(
+        context.bot.get_user_profile_photos(user.id).total_count
+    )
 
     try:
-        spamwtc = sw.get_ban(int(user.id))
-        if spamwtc:
-            text += "\n\n<b>This person is Spamwatched!</b>"
-            text += f"\nReason: <pre>{spamwtc.reason}</pre>"
-            text += "\nAppeal at @SpamWatchSupport"
+        sw = spamwtc.get_ban(int(user.id))
+        if sw:
+            text += "\n\n<b>This person is banned in Spamwatch!</b>"
+            text += f"\nResason: <pre>{sw.reason}</pre>"
         else:
             pass
     except:
-        pass  # don't crash if api is down somehow...
-
-    disaster_level_present = False
+        pass  # Don't break on exceptions like if api is down?
 
     if user.id == OWNER_ID:
-        text += "\n\nThe Disaster level of this person is 'God'."
-        disaster_level_present = True
-    elif user.id in DEV_USERS:
+        text += "\n\nAye this guy is my owner.\nI would never do anything against him!"
 
-        text += "\n\nThis user is member of 'Anteiku Union'."
-        disaster_level_present = True
-    elif user.id in DRAGONS:
-        text += "\n\nThe Disaster level of this person is 'Dragon'."
-        disaster_level_present = True
-    elif user.id in DEMONS:
-        text += "\n\nThe Disaster level of this person is 'Demon'."
-        disaster_level_present = True
-    elif user.id in TIGERS:
-        text += "\n\nThe Disaster level of this person is 'Tiger'."
-        disaster_level_present = True
-    elif user.id in WOLVES:
-        text += "\n\nThe Disaster level of this person is 'Wolf'."
-        disaster_level_present = True
+    elif user.id in SUDO_USERS:
+        text += (
+            "\n\nThis person is one of my sudo users! "
+            "Nearly as powerful as my owner - so watch it."
+        )
 
-    if disaster_level_present:
+    elif user.id in SUPPORT_USERS:
+        text += (
+            "\n\nThis person is one of my support users! "
+            "Not quite a sudo user, but can still gban you off the map."
+        )
 
-        text += ' [<a href="https://t.me/SuzuyaUpdates/55">?</a>]'.format(bot.username)
+    elif user.id in WHITELIST_USERS:
+        text += (
+            "\n\nThis person has been whitelisted! "
+            "That means I'm not allowed to ban/kick them."
+        )
 
     try:
-        user_member = chat.get_member(user.id)
-        if user_member.status == "administrator":
-            result = requests.post(
-                f"https://api.telegram.org/bot{TOKEN}/getChatMember?chat_id={chat.id}&user_id={user.id}"
-            )
-            result = result.json()["result"]
-            if "custom_title" in result.keys():
-                custom_title = result["custom_title"]
-                text += f"\n\nTitle:\n<b>{custom_title}</b>"
+        memstatus = chat.get_member(user.id).status
+        if memstatus == "administrator" or memstatus == "creator":
+            result = context.bot.get_chat_member(chat.id, user.id)
+            if result.custom_title:
+                text += f"\n\nThis user has custom title <b>{result.custom_title}</b> in this chat."
     except BadRequest:
         pass
 
@@ -331,33 +309,21 @@ def info(update: Update, context: CallbackContext):
         if mod_info:
             text += "\n\n" + mod_info
 
-    if INFOPIC:
-        try:
-            profile = context.bot.get_user_profile_photos(user.id).photos[0][-1]
-            _file = bot.get_file(profile["file_id"])
-            _file.download(f"{user.id}.png")
-
-            message.reply_document(
-                document=open(f"{user.id}.png", "rb"),
-                caption=(text),
-                parse_mode=ParseMode.HTML,
-                disable_web_page_preview=True,
-            )
-
-            os.remove(f"{user.id}.png")
-        # Incase user don't have profile pic, send normal text
-        except IndexError:
-            message.reply_text(
-                text, parse_mode=ParseMode.HTML, disable_web_page_preview=True
-            )
-
-    else:
-        message.reply_text(
-            text, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+    try:
+        profile = context.bot.get_user_profile_photos(user.id).photos[0][-1]
+        context.bot.sendChatAction(chat.id, "upload_photo")
+        context.bot.send_photo(
+            chat.id,
+            photo=profile,
+            caption=(text),
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=True,
         )
-
-    rep.delete()
-
+    except IndexError:
+        context.bot.sendChatAction(chat.id, "typing")
+        msg.reply_text(text, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+    finally:
+        del_msg.delete()
 
 @run_async
 def about_me(update: Update, context: CallbackContext):
