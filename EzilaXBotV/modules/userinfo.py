@@ -272,7 +272,7 @@ def info(update, context):
         pass  # Don't break on exceptions like if api is down?
 
     if user.id == OWNER_ID:
-        text += "\n\nAye this guy is my owner.\nI would never do anything against him!"
+        text += "\n\nOwO This is My Creator!! \nI would never do anything against him!"
 
     elif user.id in SUDO_USERS:
         text += (
