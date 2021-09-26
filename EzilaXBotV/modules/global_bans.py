@@ -548,7 +548,6 @@ This also integrates @Spamwatch API to remove Spammers as much as possible from 
 *What is SpamWatch?*
 SpamWatch maintains a large constantly updated ban-list of spambots, trolls, bitcoin spammers and unsavoury characters[.](https://telegra.ph/file/31a608aa4f3ba8c16628b.jpg)
 Constantly help banning spammers off from your group automatically So, you wont have to worry about spammers storming your group.
-*Note:* Users can appeal spamwatch bans at @SpamwatchSupport
 """
 
 GBAN_HANDLER = CommandHandler("gban", gban)
