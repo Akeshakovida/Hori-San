@@ -27,7 +27,7 @@ from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import escape_markdown
 from tswift import Song
 
-from EzilaXBotV import DEV_USERS, OWNER_ID, dispatcher
+from EzilaXBotV import DEV_USERS, OWNER_ID, dispatcher, SUPPORT_CHAT
 from EzilaXBotV.__main__ import GDPR, STATS
 from EzilaXBotV.modules.disable import DisableAbleCommandHandler
 from EzilaXBotV.modules.helper_funcs.alternate import send_action, typing_action
