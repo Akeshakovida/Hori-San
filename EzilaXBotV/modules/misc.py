@@ -612,7 +612,7 @@ def stats(update, context):
 @run_async
 def support(update: Update, context: CallbackContext):
     msg = update.effective_message
-    msg.reply_text("Join @{SUPPORT_CHAT}")
+    msg.reply_text("Join @'{SUPPORT_CHAT}'")
 
 # /ip is for private use
 __help__ = """
