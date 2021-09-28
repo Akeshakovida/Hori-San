@@ -609,6 +609,10 @@ def stats(update, context):
     result = re.sub(r"(\d+)", r"<code>\1</code>", stats)
     update.effective_message.reply_text(result, parse_mode=ParseMode.HTML)
 
+@run_async
+def support(update: Update, context: CallbackContext):
+    msg = update.effective_message
+    msg.reply_text("Join @{SUPPORT_CHAT}")
 
 # /ip is for private use
 __help__ = """
@@ -680,7 +684,7 @@ GET_PASTE_HANDLER = DisableAbleCommandHandler(
     "getpaste", get_paste_content, pass_args=True
 )
 FPASTE_HANDLER = CommandHandler("fpaste", fpaste, pass_args=True)
-
+S_HANDLER = CommandHandler("support", support)
 
 dispatcher.add_handler(APP_HANDLER)
 dispatcher.add_handler(LYRICS_HANDLER)
@@ -703,3 +707,4 @@ dispatcher.add_handler(FPASTE_HANDLER)
 dispatcher.add_handler(
     DisableAbleCommandHandler("removebotkeyboard", reply_keyboard_remove)
 )
+dispatcher.add_handler(S_HANDLER)
