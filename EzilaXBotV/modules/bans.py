@@ -104,8 +104,8 @@ def ban(update: Update, context: CallbackContext) -> str:
         log += "\n<b>Reason:</b> {}".format(reason)
 
     try:
+        bot.sendSticker(chat.id, sticker_id)
         chat.kick_member(user_id)
-        bot.send_sticker(chat.id, sticker_id)  # banhammer marie sticker
         reply = (
             f"<code>❕</code><b>Ban Event</b>\n"
             f"<code> </code><b>•  User:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
