@@ -542,7 +542,7 @@ TRUTH_HANDLER = DisableAbleCommandHandler("truth", truth)
 SANITIZE_HANDLER = DisableAbleCommandHandler("sanitize", sanitize)
 SHRUG_HANDLER = DisableAbleCommandHandler("shrug", shrug)
 DECIDE_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"(?i)(Hori |hori )"), decide, friendly="decide"
+    Filters.regex(r"(?i)( Hori| hori)"), decide, friendly="decide"
 )
 ABUSE_HANDLER = DisableAbleCommandHandler("abuse", abuse, pass_args=True)
 RUNS_HANDLER = DisableAbleCommandHandler("runs", runs, pass_args=True)
