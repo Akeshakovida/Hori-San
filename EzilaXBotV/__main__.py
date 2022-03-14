@@ -67,7 +67,7 @@ PM_START_TEXT = """
 ║┗┛║┗━╣┃║┃║╯╰║ 
 ║┏┓║┏━╣┗╣┗╣╰╯║ 
 ╚┛┗╩━━╩━╩━╩━━~~~
-I'm Kyouko Hori
+I'm arosha kovi
 I'm a Simple Yet Powerful group manager bot With Cool Modules. Made by [Th30utlaw](t.me/Th30utlaw)
 Hit /help to find my list of available commands
  
