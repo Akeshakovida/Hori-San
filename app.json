@@ -1,7 +1,7 @@
 {
       "name": "Hori-San",
-      "description": "An Anime themed Telegram group management bot.",
-      "logo": "https://telegra.ph/file/049b9bad5cc81a0a89e77.jpg",
+      "description": "An Aro_ediz Telegram group management bot.",
+      "logo": "https://telegra.ph/file/be526606a7c19fea98876.png",
       "keywords": [
          "telegram",
          "anime",
@@ -9,7 +9,7 @@
          "manager",
          "EzilaXBot"
       ],   
-   "repository": "https://github.com/Th30utlaw/Hori-San",
+   "repository": "https://github.com/Akeshakovida/Hori-San",
    "addons": [
       {
          "options": {
@@ -50,7 +50,7 @@
       "OWNER_ID": {
          "description": "Your user ID as an integer.",
          "required": true,
-         "value": "1033844782"
+         "value": "1030834551"
       },
       "OWNER_USERNAME": {
          "description": "Your username without the @",
@@ -84,7 +84,7 @@
       "DEV_USERS": {
          "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Saitama support then keep the current ID's here at they are and add yours.",
          "required": false,
-         "value": "1033844782"
+         "value": "1030834551"
       },
       "sw_api": {
          "description": "Spamwatch API Token, Get one from @SpamWatchBot.",
@@ -98,22 +98,22 @@
       "DRAGONS": {
          "description": "A space separated list of user IDs who you want to assign as sudo users.",
          "required": false,
-         "value": "1033844782"
+         "value": "1030834551"
       },
       "DEMONS": {
          "description": "A space separated list of user IDs who you wanna assign as support users(gban perms only).",
          "required": false,
-         "value": "1033844782"
+         "value": "1030834551"
       },
       "TIGERS": {
          "description": "A space separated list of user IDs who you wanna assign as tiger users.",
          "required": false,
-         "value": "1033844782"
+         "value": "1030834551"
       },
       "WOLVES": {
          "description": "A space separated list of user IDs who you want to assign as whitelisted - can't be banned with your bot.",
          "required": false,
-         "value": "1033844782"
+         "value": "1030834551"
       },
       "ENV": {
          "description": "Setting this to ANYTHING will enable environment variables. Leave it as it is",
@@ -181,5 +181,5 @@
       "daisy"
    ],
    "name": "Hori-San",
-   "repository": "https://github.com/Th30utlaw/Hori-San"
+   "repository": "https://github.com/Akeshakovida/Hori-San"
 }
