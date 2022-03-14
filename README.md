@@ -7,7 +7,7 @@
 
 # 🏃‍♂️ Easy Deploy 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Th30utlaw/Hori-San.git)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Akeshakovida/Hori-San.git)
 
 
 ### Self-hosting (For Devs) ⚔
